@@ -33,6 +33,7 @@ const sections = [
     title: 'Navigation',
     shortcuts: [
       { keys: ['Tab'],         label: 'Switch active pane' },
+      { keys: ['⌘', '⇧', 'D'], label: 'Toggle single / dual panes' },
       { keys: ['⌥', 'F1'],    label: 'Focus left pane' },
       { keys: ['⌥', 'F2'],    label: 'Focus right pane' },
       { keys: ['⌘', '⇧', 'P'], label: 'Command palette' },

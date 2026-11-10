@@ -667,11 +667,13 @@ async function handleTabContextAction(action) {
     }
 
     if (action === 'openInOtherPane') {
+      store.setDualPaneVisible(true);
       store.addPaneTab(otherPaneId.value, tab.currentPath);
       return;
     }
 
     if (action === 'moveToOtherPane') {
+      store.setDualPaneVisible(true);
       store.movePaneTab(props.paneId, tab.id, otherPaneId.value);
       return;
     }
@@ -3117,6 +3119,7 @@ async function handleContextAction(action) {
     }
 
     if (action === 'copyToOtherPane' || action === 'moveToOtherPane') {
+      store.setDualPaneVisible(true);
       const targetPane = store.activeTabFor(otherPaneId.value);
 
       if (!targetPane) {

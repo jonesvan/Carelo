@@ -164,15 +164,21 @@ onBeforeUnmount(() => {
         class="workspace"
         :class="{ 'workspace--preview-hidden': !store.previewPanelVisible }"
       >
-        <section ref="paneGrid" class="pane-grid" aria-label="File panes">
-          <Pane pane-id="left" title="Left" />
+        <section
+          ref="paneGrid"
+          class="pane-grid"
+          :class="{ 'pane-grid--single': !store.dualPaneVisible }"
+          aria-label="File panes"
+        >
+          <Pane v-show="store.dualPaneVisible || store.activePaneId === 'left'" pane-id="left" title="Left" />
           <div
+            v-show="store.dualPaneVisible"
             class="panel-resize-handle panel-resize-handle--panes"
             aria-hidden="true"
             @dblclick="store.setPaneSplitPercent(48)"
             @pointerdown="startPaneResize"
           ></div>
-          <Pane pane-id="right" title="Right" />
+          <Pane v-show="store.dualPaneVisible || store.activePaneId === 'right'" pane-id="right" title="Right" />
         </section>
 
         <div

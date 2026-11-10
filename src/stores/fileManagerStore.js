@@ -1139,7 +1139,8 @@ export const useFileManagerStore = defineStore('file-manager', () => {
     ),
   });
 
-  const activePaneId = ref('left');
+  const activePaneId = ref(restoredPaneSettings.activePaneId === 'right' ? 'right' : 'left');
+  const dualPaneVisible = ref(savedSettings.dualPaneVisible === true);
   const sidebarVisible = ref(savedSettings.sidebarVisible ?? true);
   const sidebarWidth = ref(savedSettings.sidebarWidth ?? 310);
   const previewPanelVisible = ref(savedSettings.previewPanelVisible ?? true);
@@ -3500,6 +3501,7 @@ export const useFileManagerStore = defineStore('file-manager', () => {
     }
 
     if (activePaneId.value !== paneId) {
+      dualPaneVisible.value = true;
       clearInactivePaneSelections(paneId);
     }
 
@@ -3507,6 +3509,9 @@ export const useFileManagerStore = defineStore('file-manager', () => {
   }
 
   function switchActivePane() {
+    if (!dualPaneVisible.value) {
+      return;
+    }
     setActivePane(activePaneId.value === 'left' ? 'right' : 'left');
   }
 
@@ -4447,6 +4452,14 @@ export const useFileManagerStore = defineStore('file-manager', () => {
     sidebarVisible.value = !sidebarVisible.value;
   }
 
+  function setDualPaneVisible(visible) {
+    dualPaneVisible.value = Boolean(visible);
+  }
+
+  function toggleDualPane() {
+    setDualPaneVisible(!dualPaneVisible.value);
+  }
+
   function togglePreviewPanel() {
     previewPanelVisible.value = !previewPanelVisible.value;
   }
@@ -4534,6 +4547,8 @@ export const useFileManagerStore = defineStore('file-manager', () => {
 
   watch(
     () => [
+      dualPaneVisible.value,
+      activePaneId.value,
       sidebarVisible.value,
       sidebarWidth.value,
       previewPanelVisible.value,
@@ -4548,6 +4563,8 @@ export const useFileManagerStore = defineStore('file-manager', () => {
     ],
     () => {
       saveUiSettings({
+        dualPaneVisible: dualPaneVisible.value,
+        activePaneId: activePaneId.value,
         sidebarVisible: sidebarVisible.value,
         sidebarWidth: sidebarWidth.value,
         previewPanelVisible: previewPanelVisible.value,
@@ -4613,6 +4630,9 @@ export const useFileManagerStore = defineStore('file-manager', () => {
   return {
     panes,
     activePaneId,
+    dualPaneVisible,
+    setDualPaneVisible,
+    toggleDualPane,
     activePane,
     canGoBack,
     canGoForward,

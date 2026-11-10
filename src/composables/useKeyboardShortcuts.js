@@ -318,6 +318,7 @@ export function useKeyboardShortcuts() {
   }
 
   function openFolderCompare() {
+    store.setDualPaneVisible(true);
     const left = store.effectiveDirectoryFor('left') || store.activeTabFor('left')?.currentPath || '';
     const right = store.effectiveDirectoryFor('right') || store.activeTabFor('right')?.currentPath || '';
     folderCompare.open(left, right);
@@ -403,6 +404,10 @@ export function useKeyboardShortcuts() {
       return;
     }
 
+    if (options.targetPaneId && options.targetPaneId !== paneId) {
+      store.setDualPaneVisible(true);
+    }
+
     let nameForEntry = null;
 
     if (options.promptRename && entries.length === 1) {
@@ -439,6 +444,8 @@ export function useKeyboardShortcuts() {
     if (entries.length === 0 || !targetDirectory) {
       return;
     }
+
+    store.setDualPaneVisible(true);
 
     const moved = await transfers.moveEntries({
       entries,
@@ -992,6 +999,9 @@ export function useKeyboardShortcuts() {
         case 'pane.switch':
           store.switchActivePane();
           return;
+        case 'pane.toggleDual':
+          store.toggleDualPane();
+          return;
         case 'pane.left':
           store.setActivePane('left');
           return;
@@ -1159,6 +1169,12 @@ export function useKeyboardShortcuts() {
         return;
       }
 
+      if (command && event.shiftKey && !event.altKey && lowerKey === 'd') {
+        event.preventDefault();
+        store.toggleDualPane();
+        return;
+      }
+
       if (command && key === 'Tab') {
         event.preventDefault();
         store.activateAdjacentTab(paneId, event.shiftKey ? -1 : 1);
@@ -1225,13 +1241,13 @@ export function useKeyboardShortcuts() {
         return;
       }
 
-      if (key === 'Tab') {
+      if (key === 'Tab' && store.dualPaneVisible) {
         event.preventDefault();
         store.switchActivePane();
         return;
       }
 
-      if (event.shiftKey && key === 'Tab') {
+      if (event.shiftKey && key === 'Tab' && store.dualPaneVisible) {
         event.preventDefault();
         store.switchActivePane();
         return;

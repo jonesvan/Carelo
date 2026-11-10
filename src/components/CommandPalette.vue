@@ -599,6 +599,15 @@ const commandDefinitions = [
     keywords: 'left right focus',
   },
   {
+    id: 'pane.toggleDual',
+    section: 'View',
+    title: 'Toggle dual panes',
+    detail: 'Switch between one file pane and two; keep both panes’ tabs',
+    icon: 'split-pane',
+    shortcut: 'Ctrl Shift D',
+    keywords: 'single dual split layout second pane',
+  },
+  {
     id: 'pane.left',
     section: 'Navigation',
     title: 'Focus left pane',

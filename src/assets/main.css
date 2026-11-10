@@ -282,6 +282,10 @@ input:focus-visible {
   min-height: 0;
 }
 
+.pane-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 /* High-frequency hover targets should repaint once, not cross-fade while the pointer moves. */
 .file-row,
 .file-card,

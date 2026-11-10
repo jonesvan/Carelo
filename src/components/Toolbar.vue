@@ -253,6 +253,18 @@ async function deleteSelection() {
     </div>
 
     <div class="toolbar-right" @mousedown.stop>
+      <button
+        v-tooltip="{ text: store.dualPaneVisible ? 'Single pane' : 'Dual panes', shortcut: 'Ctrl Shift D' }"
+        type="button"
+        class="icon-btn"
+        :class="{ active: store.dualPaneVisible }"
+        :aria-pressed="store.dualPaneVisible"
+        aria-label="Toggle dual panes"
+        @click="store.toggleDualPane"
+      >
+        <AppIcon name="split-pane" :size="19" :stroke-width="1.8" />
+      </button>
+
       <div class="seg-control" role="group" aria-label="View mode">
         <button
           v-tooltip="{ text: 'List view', shortcut: 'Ctrl F2' }"

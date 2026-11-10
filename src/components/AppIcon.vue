@@ -60,6 +60,11 @@ defineProps({
       <path d="M5 18h14" />
     </template>
 
+    <template v-else-if="name === 'split-pane'">
+      <rect x="4" y="5" width="16" height="14" rx="2" />
+      <path d="M12 5v14" />
+    </template>
+
     <template v-else-if="name === 'columns'">
       <rect x="4" y="5" width="16" height="14" rx="2" />
       <path d="M9.5 5v14" />

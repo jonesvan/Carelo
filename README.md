@@ -8,6 +8,9 @@ and custom tools.
 
 ## Features
 
+- Single-pane browsing by default. Toggle dual panes with the split-pane toolbar
+  button, `Ctrl+Shift+D`, or the command palette. The layout is remembered and
+  both panes keep their tabs. Actions targeting the other pane reveal it.
 - Dual-pane file browsing with tabs per pane.
 - List, grid, and column (Miller) view modes.
 - Real local file metadata in the preview panel, including permissions, owner,
