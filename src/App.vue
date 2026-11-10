@@ -170,7 +170,7 @@ onBeforeUnmount(() => {
           :class="{ 'pane-grid--single': !store.dualPaneVisible }"
           aria-label="File panes"
         >
-          <Pane v-show="store.dualPaneVisible || store.activePaneId === 'left'" pane-id="left" title="Left" />
+          <Pane pane-id="left" title="Left" />
           <div
             v-show="store.dualPaneVisible"
             class="panel-resize-handle panel-resize-handle--panes"
@@ -178,7 +178,7 @@ onBeforeUnmount(() => {
             @dblclick="store.setPaneSplitPercent(48)"
             @pointerdown="startPaneResize"
           ></div>
-          <Pane v-show="store.dualPaneVisible || store.activePaneId === 'right'" pane-id="right" title="Right" />
+          <Pane pane-id="right" title="Right" />
         </section>
 
         <div

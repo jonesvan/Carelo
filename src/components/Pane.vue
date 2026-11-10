@@ -3160,6 +3160,7 @@ async function handleContextAction(action) {
 
 <template>
   <section
+    v-show="store.dualPaneVisible || isActive"
     class="pane"
     :class="{ 'pane--active': isActive }"
     :data-pane-id="paneId"
